@@ -16,6 +16,8 @@ export default function Document() {
           dangerouslySetInnerHTML={{ __html: getCssText() }}
         />
 
+        <title>Ignite Shop</title>
+
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
           rel="stylesheet"

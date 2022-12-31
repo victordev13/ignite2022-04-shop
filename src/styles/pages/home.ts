@@ -8,7 +8,7 @@ export const HomeContainer = styled('main', {
   maxHeight: 656,
 })
 
-export const ProductContainer = styled('a', {
+export const ProductContainer = styled('div', {
   background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
   borderRadius: 8,
   cursor: 'pointer',

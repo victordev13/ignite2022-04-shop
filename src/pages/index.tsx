@@ -4,6 +4,7 @@ import { useKeenSlider } from 'keen-slider/react'
 import { stripe } from '../lib/stripe'
 import { GetStaticProps } from 'next'
 import Stripe from 'stripe'
+import Link from 'next/link'
 import { formatMoney } from '../utils/money'
 
 import 'keen-slider/keen-slider.min.css'
@@ -12,7 +13,7 @@ interface Product {
   id: string
   name: string
   imageUrl: string
-  price: number
+  formattedPrice: string
 }
 
 interface Props {
@@ -43,13 +44,15 @@ export default function Home({ products }: Props) {
   return (
     <HomeContainer ref={sliderRef} className="keen-slider">
       {products.map((p) => (
-        <ProductContainer className="keen-slider__slide" key={p.id}>
-          <Image src={p.imageUrl} width={520} height={480} alt={p.name} />
-          <footer>
-            <strong>{p.name}</strong>
-            <span>R$ 129,90</span>
-          </footer>
-        </ProductContainer>
+        <Link href={'/products/' + p.id} key={p.id} prefetch={false}>
+          <ProductContainer className="keen-slider__slide">
+            <Image src={p.imageUrl} width={520} height={480} alt={p.name} />
+            <footer>
+              <strong>{p.name}</strong>
+              <span>{p.formattedPrice}</span>
+            </footer>
+          </ProductContainer>
+        </Link>
       ))}
     </HomeContainer>
   )
@@ -68,7 +71,7 @@ export const getStaticProps: GetStaticProps = async () => {
       id: product.id,
       name: product.name,
       imageUrl: product.images[0],
-      price: formatMoney(price.unit_amount as number),
+      formattedPrice: formatMoney((price.unit_amount as number) / 100),
     }
   })
 
