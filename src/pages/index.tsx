@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { formatMoney } from '../utils/money'
 
 import 'keen-slider/keen-slider.min.css'
+import Head from 'next/head'
 
 interface Product {
   id: string
@@ -35,26 +36,28 @@ export default function Home({ products }: Props) {
       '(min-width: 920px)': {
         slides: { perView: 3, spacing: 32 },
       },
-      '(min-width: 1140px)': {
-        slides: { perView: 4, spacing: 32 },
-      },
     },
   })
 
   return (
-    <HomeContainer ref={sliderRef} className="keen-slider">
-      {products.map((p) => (
-        <Link href={'/products/' + p.id} key={p.id} prefetch={false}>
-          <ProductContainer className="keen-slider__slide">
-            <Image src={p.imageUrl} width={520} height={480} alt={p.name} />
-            <footer>
-              <strong>{p.name}</strong>
-              <span>{p.formattedPrice}</span>
-            </footer>
-          </ProductContainer>
-        </Link>
-      ))}
-    </HomeContainer>
+    <>
+      <Head>
+        <title>Home | Ignite Shop</title>
+      </Head>
+      <HomeContainer ref={sliderRef} className="keen-slider">
+        {products.map((p) => (
+          <Link href={'/products/' + p.id} key={p.id} prefetch={false}>
+            <ProductContainer className="keen-slider__slide">
+              <Image src={p.imageUrl} width={520} height={480} alt={p.name} />
+              <footer>
+                <strong>{p.name}</strong>
+                <span>{p.formattedPrice}</span>
+              </footer>
+            </ProductContainer>
+          </Link>
+        ))}
+      </HomeContainer>
+    </>
   )
 }
 

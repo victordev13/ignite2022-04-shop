@@ -9,6 +9,7 @@ export const HomeContainer = styled('main', {
 })
 
 export const ProductContainer = styled('div', {
+  height: 'min(656px, 75vh)',
   background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
   borderRadius: 8,
   cursor: 'pointer',
